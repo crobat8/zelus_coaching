@@ -14,8 +14,10 @@ export const UserContextProvider = ({ children }) => {
   const [userInfo,setUserInfo]=useState("")
   
   useEffect(() => {
-    
-    const userRef =query(collection(db,"users"),where("uid","==","SeVW58sXAMfQG3eN5U2L73I0EmE2")) 
+    if(!currentUser){
+      return
+    }
+    const userRef =query(collection(db,"users"),where("uid","==",currentUser.uid)) 
     const unsub = onSnapshot(userRef,(snapshot)=>{
       setUserInfo(snapshot.docs.map(doc=>doc.data()))
     })
