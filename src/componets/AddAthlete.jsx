@@ -14,7 +14,8 @@ import {
   deleteField,
   deleteDoc,
   onSnapshot,
-  get
+  get,
+  arrayUnion
 } from "firebase/firestore";
 
 import { 
@@ -45,6 +46,15 @@ const AddAthlete = () =>{
     });
   };
 
+  function sendRequest(x){
+    const requestRef = doc(db,"users",x.uid)
+    
+    updateDoc(requestRef,{
+      requests: arrayUnion(currentUser.uid)
+    })
+    console.log(x)
+  }
+
   return(
     <div className="addAthlete">
         <input
@@ -61,10 +71,10 @@ const AddAthlete = () =>{
             <div className="add" >
               <div className="userChatInfo">
                 {/* profile pic */}
-              <span>{e.displayName}</span>
-              {/* <button onClick={()=>sendRequest(e)} >
-                add user as friend
-              </button>  */}
+                <span>{e.displayName}</span>
+                <button onClick={()=>sendRequest(e)} >
+                  add user as friend
+                </button>  
               </div>
             </div> 
           )
