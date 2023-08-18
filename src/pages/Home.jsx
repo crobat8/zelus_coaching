@@ -13,24 +13,29 @@ import {
   AiOutlineMenu
 } from 'react-icons/ai';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import AddAthlete from '../componets/AddAthlete';
+import { UserContext } from '../context/UserContext';
 const Home = () =>{ 
     
   const [page,setPage] = useState(1);
   const [open,setOpen] = useState(true);
   const{currentUser} = useContext(AuthContext);
-
+  const{userInfo} =useContext(UserContext)
   let socialIconStyles = { color: "white", fontSize: "1.5em" ,padding:"5px"};
   let menuIconStyle = { color: "white", fontSize: "1.5em" ,padding:"10px",marginLeft:"0px"};
 
   function handleOpen(){
+    console.log(userInfo)
     setOpen(!open)
+
   }
 
   function HandleSwap(){
     if(page === 1){
       return (
         <h1>
-          page 1
+          page 1 
+          
         </h1>
       )
     }else if(page === 2){
@@ -48,9 +53,16 @@ const Home = () =>{
     }else if(page === 4){
       return(
         <h1>
-          page 4
+          <AddAthlete/>
         </h1>
-      )  
+      ) 
+    }else if(page === 5){
+      return(
+        <h1>
+          page 5
+        </h1>
+        
+      ) 
     }else{
       return (
         <h1>
@@ -60,16 +72,29 @@ const Home = () =>{
     }
   }
 
+  if(!userInfo){
+    return(
+      <h1>
+        loading
+      </h1>
+    )
+  }
+
   return (
     <div className="home" >
       <header className="topBar" >
         <div onClick={()=>handleOpen()} className='iconHolder'>
           <AiOutlineMenu style={menuIconStyle}/>
         </div>
-        <div className='space'>
-
-        </div>
         <img src={RedLogo} alt='logo' /> 
+        <div className='space'>
+          <h3>
+            <b>
+              {userInfo[0].displayName}
+            </b>
+          </h3>
+        </div>
+        
       </header>
       <main className="page" >
         <Sidebar
@@ -78,16 +103,12 @@ const Home = () =>{
           collapsedWidth='0px'
         >
           <Menu>
-            <SubMenu label="Practice">
-              <SubMenu label="September">
-                <MenuItem onClick={()=>setPage(1)}> 1st </MenuItem>
-                <MenuItem onClick={()=>setPage(2)}> 2nd </MenuItem>
-              </SubMenu>
-              <MenuItem onClick={()=>setPage(1)}> Practices </MenuItem>
-              <MenuItem onClick={()=>setPage(2)}> Lifts </MenuItem>
-            </SubMenu>
-            <MenuItem onClick={()=>setPage(4)}> Projections </MenuItem>
-            <MenuItem onClick={()=>signOut(auth)}> Logout </MenuItem>
+            <MenuItem onClick={()=>setPage(1)}> Crete Practice </MenuItem>
+            <MenuItem onClick={()=>setPage(2)}> Crete Outline </MenuItem>
+            <MenuItem onClick={()=>setPage(3)}> My Athletes </MenuItem>
+            <MenuItem onClick={()=>setPage(4)}> Add Athletes </MenuItem>
+            <MenuItem onClick={()=>setPage(5)}> Event Groups</MenuItem>
+            <MenuItem onClick={()=>signOut(auth)}><b>Logout</b>  </MenuItem>
           </Menu>
         </Sidebar>
         <HandleSwap/>
