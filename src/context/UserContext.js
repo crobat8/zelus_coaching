@@ -26,7 +26,13 @@ export const UserContextProvider = ({ children }) => {
     };
 
   }, [currentUser]);
-
+  if(!userInfo){
+    return(
+      <h1>
+        loading
+      </h1>
+    )
+  }
   return (
     <UserContext.Provider value={{ userInfo }}>
       {children}

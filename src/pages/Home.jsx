@@ -87,7 +87,7 @@ const Home = () =>{
         <div className='space'>
           <h3>
             <b>
-              {userInfo[0].displayName}
+            {!!userInfo[0].displayName?userInfo[0].displayName:""}
             </b>
           </h3>
         </div>
