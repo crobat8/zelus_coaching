@@ -42,7 +42,6 @@ const MyAthlete = () =>{
     if(userInfo[0].athletes.length == 0){
 
     }else{
-      console.log("tests2")
       getRequestInfo();
     }
     
@@ -62,10 +61,9 @@ const MyAthlete = () =>{
       <h1>
         My Athletes
       </h1>
-      {athletes.map((e)=>{
-        console.log(e)
+      {athletes.map((e,key)=>{
         return(
-          <h2>
+          <h2 key={key}>
             {e.displayName}
           </h2>
         )

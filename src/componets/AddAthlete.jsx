@@ -52,7 +52,6 @@ const AddAthlete = () =>{
     updateDoc(requestRef,{
       requests: arrayUnion(currentUser.uid)
     })
-    console.log(x)
   }
 
   return(
