@@ -15,12 +15,13 @@ import {
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import AddAthlete from '../componets/AddAthlete';
 import { UserContext } from '../context/UserContext';
+import MyAthlete from '../componets/MyAthletes';
 const Home = () =>{ 
     
   const [page,setPage] = useState(1);
   const [open,setOpen] = useState(true);
   const{currentUser} = useContext(AuthContext);
-  const{userInfo} =useContext(UserContext)
+  const{userInfo} =useContext(UserContext);
   let socialIconStyles = { color: "white", fontSize: "1.5em" ,padding:"5px"};
   let menuIconStyle = { color: "white", fontSize: "1.5em" ,padding:"10px",marginLeft:"0px"};
 
@@ -46,9 +47,7 @@ const Home = () =>{
       )
     }else if(page === 3){
       return(
-        <h1>
-          page 3
-        </h1>
+        <MyAthlete/>
       ) 
     }else if(page === 4){
       return(

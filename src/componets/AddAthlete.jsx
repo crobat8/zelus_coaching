@@ -32,9 +32,11 @@ const AddAthlete = () =>{
   const [err, setErr] = useState(false);
   
   const handleSearch = async (e) => {
+    
     var temp = []
+    
     const q = query(
-      collection(db, "users"),
+      collection(db, "names"),
       where("brokenDisplayName", "array-contains", e.toLowerCase())
     );
     const querySnapshot = await getDocs(q);
@@ -55,30 +57,28 @@ const AddAthlete = () =>{
 
   return(
     <div className="addAthlete">
-        <input
-          type="text"
-          placeholder="Find a user"
-          onChange={(e) => handleSearch(e.target.value)}
-          className="addinput"
-        />
-         {athletes.map((e,i)=>{
-          if(e.uid == currentUser.uid){
-            return
-          }
-          return(
-            <div className="add" >
-              <div className="userChatInfo">
-                {/* profile pic */}
-                <span>{e.displayName}</span>
-                <button onClick={()=>sendRequest(e)} >
-                  add user as friend
-                </button>  
-              </div>
-            </div> 
-          )
-
-
-        })}  
+      <input
+        type="text"
+        placeholder="Find a user"
+        onChange={(e) => handleSearch(e.target.value)}
+        className="addinput"
+      />
+        {athletes.map((e,i)=>{
+        if(e.uid == currentUser.uid){
+          return
+        }
+        return(
+          <div className="add" >
+            <div className="userChatInfo">
+              {/* profile pic */}
+              <span>{e.displayName}</span>
+              <button onClick={()=>sendRequest(e)} >
+                add user as friend
+              </button>  
+            </div>
+          </div> 
+        )
+      })}  
     </div>
 
   )

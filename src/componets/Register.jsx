@@ -56,12 +56,18 @@ const Register = ({change}) => {
           displayName,
           photoURL: "https://firebasestorage.googleapis.com/v0/b/partyup-76d1a.appspot.com/o/GUEST1689117670991?alt=media&token=7c0d02f7-4b98-4f24-a070-5c82b5b368ab",
         });
+        //easy for database read
+        await setDoc(doc(db,"names",res.user.uid),{
+          brokenDisplayName,
+          displayName,
+          uid: res.user.uid,
+          lowerDisplayName,
+        });
         //create user on firestore
         await setDoc(doc(db, "users", res.user.uid), {
           uid: res.user.uid,
           displayName,
           lowerDisplayName,
-          brokenDisplayName,
           email,
           photoURL: "https://firebasestorage.googleapis.com/v0/b/partyup-76d1a.appspot.com/o/GUEST1689117670991?alt=media&token=7c0d02f7-4b98-4f24-a070-5c82b5b368ab",
         }).then(() => {
