@@ -62,13 +62,8 @@ const Register = ({change}) => {
           displayName,
           lowerDisplayName,
           brokenDisplayName,
-          cleanText:0,
           email,
           photoURL: "https://firebasestorage.googleapis.com/v0/b/partyup-76d1a.appspot.com/o/GUEST1689117670991?alt=media&token=7c0d02f7-4b98-4f24-a070-5c82b5b368ab",
-          friends:{
-            Jerry:"Jerry"
-            
-          }
         }).then(() => {
           console.log("Successful")}
         );

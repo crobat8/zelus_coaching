@@ -36,12 +36,10 @@ const AddAthlete = () =>{
     const q = query(
       collection(db, "users"),
       where("brokenDisplayName", "array-contains", e.toLowerCase())
-
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       temp.push(doc.data())
-      //console.log(doc.id, " => ", doc.data());
       setAthletes(temp)
     });
   };
