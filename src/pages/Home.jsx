@@ -5,6 +5,9 @@ import RedLogo from '../img/CWU_wildcat_spirit_mark_RGB.png'
 import { auth } from '../firebase'
 import {signOut} from "firebase/auth"
 import { AuthContext } from '../context/AuthContext';
+import { UserContext } from '../context/UserContext';
+import { AthleteContext } from '../context/AthletesContext';
+
 import { 
   AiFillGithub,
   AiFillLinkedin,
@@ -14,14 +17,16 @@ import {
 } from 'react-icons/ai';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import AddAthlete from '../componets/AddAthlete';
-import { UserContext } from '../context/UserContext';
 import MyAthlete from '../componets/MyAthletes';
+
 const Home = () =>{ 
     
   const [page,setPage] = useState(1);
+  const [group,setGroup] = useState("")
   const [open,setOpen] = useState(true);
   const{currentUser} = useContext(AuthContext);
   const{userInfo} =useContext(UserContext);
+  const{athletesNames} = useContext(AthleteContext)
   let socialIconStyles = { color: "white", fontSize: "1.5em" ,padding:"5px"};
   let menuIconStyle = { color: "white", fontSize: "1.5em" ,padding:"10px",marginLeft:"0px"};
 
@@ -54,6 +59,7 @@ const Home = () =>{
         </h1>
       ) 
     }else if(page === 5){
+      console.log(athletesNames)
       return(
         <h1>
           page 5
@@ -96,7 +102,7 @@ const Home = () =>{
       <main className="page" >
         <Sidebar
           collapsed={open}
-          width='150px'
+          width='200px'
           collapsedWidth='0px'
         >
           <Menu>
@@ -104,7 +110,11 @@ const Home = () =>{
             <MenuItem onClick={()=>setPage(2)}> Crete Outline </MenuItem>
             <MenuItem onClick={()=>setPage(3)}> My Athletes </MenuItem>
             <MenuItem onClick={()=>setPage(4)}> Add Athletes </MenuItem>
-            <MenuItem onClick={()=>setPage(5)}> Event Groups</MenuItem>
+            <SubMenu label="EventGroup" onClick={()=>setPage(5)}>
+              
+              <MenuItem onClick={()=>setPage(1)}> 1st </MenuItem>
+              <MenuItem onClick={()=>setPage(2)}> 2nd </MenuItem>
+            </SubMenu>
             <MenuItem onClick={()=>signOut(auth)}><b>Logout</b>  </MenuItem>
           </Menu>
         </Sidebar>
