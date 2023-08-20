@@ -11,6 +11,14 @@ const AddGroup = () =>{
   const {currentUser} =useContext(AuthContext);
   var [athleteSelection,setAthleteSelection] =useState();
 
+  const handleChangeAdd = (x) =>{
+    if((toAdd+x)===0){
+
+    }else{
+      setToAdd(toAdd+x);
+    }
+  }
+  
   const handleSubmit = async (e) =>{
     e.preventDefault();
     console.log(e)
@@ -18,7 +26,7 @@ const AddGroup = () =>{
     var groupSpot = currentUser.uid+"_"+e.target[0].value
     var groupUIDS = []
     for(var i = 1;i<=toAdd;i++){
-      if(e.target[i].value!=""){
+      if(e.target[i].value!==""){
         groupUIDS.push(e.target[i].value)
       }
     }
@@ -53,8 +61,17 @@ const AddGroup = () =>{
         <label for='groupName'>group name</label>
         <input required type="groupName" placeholder="throws" />
         <ListCount/>
+        <div>
+          <button type="button" onClick={()=>handleChangeAdd(-1)}>
+            add athlete slot
+          </button>
+          <button type="button" onClick={()=>handleChangeAdd(1)}>
+            remove athlete slot
+          </button>
+        </div>
         <button className="logButton">save</button>
       </form>
+
     </div>
 
   )
