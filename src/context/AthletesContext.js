@@ -7,14 +7,15 @@ import { UserContext } from "./UserContext";
 export const AthleteContext = createContext();
 
 export const AthleteContextProvider = ({ children }) => {
-  const [athletesNames,setAthletesNames]=useState();
+  const [athletesNames,setAthletesNames]=useState([]);
   const {userInfo}= useContext(UserContext);
   
   useEffect(() => {
     
-    if(!userInfo){
+    if(!userInfo||!userInfo[0].athletes){
       return
     }
+
     const userRef =query(collection(db,"names"),where("uid","in",userInfo[0].athletes)) 
     const unsub = onSnapshot(userRef,(snapshot)=>{
       setAthletesNames(snapshot.docs.map(doc=>doc.data()))
@@ -33,7 +34,7 @@ export const AthleteContextProvider = ({ children }) => {
       </h1>
     )
   }else{
-    console.log(athletesNames)
+    
   }
   return (
     <AthleteContext.Provider value={{ athletesNames }}>

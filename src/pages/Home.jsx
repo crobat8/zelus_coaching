@@ -18,6 +18,7 @@ import {
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import AddAthlete from '../componets/AddAthlete';
 import MyAthlete from '../componets/MyAthletes';
+import AddGroup from '../componets/AddGroup';
 
 const Home = () =>{ 
     
@@ -59,11 +60,9 @@ const Home = () =>{
         </h1>
       ) 
     }else if(page === 5){
-      console.log(athletesNames)
+      
       return(
-        <h1>
-          page 5
-        </h1>
+        <AddGroup/>
         
       ) 
     }else{

@@ -56,6 +56,9 @@ const AddAthlete = () =>{
 
   return(
     <div className="addAthlete">
+      <h3>
+        search and athletes name
+      </h3>
       <input
         type="text"
         placeholder="Find a user"
