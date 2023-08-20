@@ -18,7 +18,9 @@ const AddGroup = () =>{
     var groupSpot = currentUser.uid+"_"+e.target[0].value
     var groupUIDS = []
     for(var i = 1;i<=toAdd;i++){
-      groupUIDS.push(e.target[i].value)
+      if(e.target[i].value!=""){
+        groupUIDS.push(e.target[i].value)
+      }
     }
 
     const groupsRef = doc(db,"groups",groupSpot)
