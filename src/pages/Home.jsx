@@ -19,6 +19,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import AddAthlete from '../componets/AddAthlete';
 import MyAthlete from '../componets/MyAthletes';
 import AddGroup from '../componets/AddGroup';
+import Group from '../componets/Group';
 
 const Home = () =>{ 
     
@@ -33,6 +34,11 @@ const Home = () =>{
 
   function handleOpen(){
     setOpen(!open)
+  }
+
+  function handleGroups(name){
+    setPage(6)
+    setGroup(name)
   }
 
   function HandleSwap(){
@@ -65,6 +71,12 @@ const Home = () =>{
         <AddGroup/>
         
       ) 
+    }else if(page === 6){
+      
+      return(
+        <Group title={group}/>
+        
+      ) 
     }else{
       return (
         <h1>
@@ -80,6 +92,8 @@ const Home = () =>{
         loading
       </h1>
     )
+  }else{
+    
   }
 
   return (
@@ -110,9 +124,24 @@ const Home = () =>{
             <MenuItem onClick={()=>setPage(3)}> My Athletes </MenuItem>
             <MenuItem onClick={()=>setPage(4)}> Add Athletes </MenuItem>
             <SubMenu label="EventGroup" onClick={()=>setPage(5)}>
+              {!userInfo[0].eventGroup?
+
+                <div>
+
+                </div>
+                :
+                <div>
+                  {userInfo[0].eventGroup.map((e,i)=>{
+                    return(
+                      <MenuItem onClick={()=>handleGroups(e)}> {e} </MenuItem>
+                    )
+                    
+                  })}
+                </div>
+              }
               
-              <MenuItem onClick={()=>setPage(1)}> 1st </MenuItem>
-              <MenuItem onClick={()=>setPage(2)}> 2nd </MenuItem>
+              
+
             </SubMenu>
             <MenuItem onClick={()=>signOut(auth)}><b>Logout</b>  </MenuItem>
           </Menu>

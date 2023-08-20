@@ -22,12 +22,12 @@ const AddGroup = () =>{
   const handleSubmit = async (e) =>{
     e.preventDefault();
     console.log(e)
-
-    var groupSpot = currentUser.uid+"_"+e.target[0].value
+    var lower = e.target[0].value.toLowerCase()
+    var groupSpot = currentUser.uid+"_"+lower
     var groupUIDS = []
     for(var i = 1;i<=toAdd;i++){
       if(e.target[i].value===""||groupUIDS.includes(e.target[i].value)){
-        console.log("repeat")
+        
       }else{
         groupUIDS.push(e.target[i].value) 
       }
@@ -37,10 +37,11 @@ const AddGroup = () =>{
     const requestRef = doc(db,"users",currentUser.uid)
 
     setDoc(groupsRef,{
+      groupID:groupSpot,
       groupUIDS
     }).then(()=>{
       updateDoc(requestRef,{
-        eventGroup: arrayUnion(e.target[0].value)
+        eventGroup: arrayUnion(lower)
       }).then(()=>{
         alert("sucessfully created event group")
       })
