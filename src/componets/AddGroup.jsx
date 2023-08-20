@@ -26,8 +26,10 @@ const AddGroup = () =>{
     var groupSpot = currentUser.uid+"_"+e.target[0].value
     var groupUIDS = []
     for(var i = 1;i<=toAdd;i++){
-      if(e.target[i].value!==""){
-        groupUIDS.push(e.target[i].value)
+      if(e.target[i].value===""||groupUIDS.includes(e.target[i].value)){
+        console.log("repeat")
+      }else{
+        groupUIDS.push(e.target[i].value) 
       }
     }
 
@@ -62,10 +64,10 @@ const AddGroup = () =>{
         <input required type="groupName" placeholder="throws" />
         <ListCount/>
         <div>
-          <button type="button" onClick={()=>handleChangeAdd(-1)}>
+          <button type="button" onClick={()=>handleChangeAdd(1)}>
             add athlete slot
           </button>
-          <button type="button" onClick={()=>handleChangeAdd(1)}>
+          <button type="button" onClick={()=>handleChangeAdd(-1)}>
             remove athlete slot
           </button>
         </div>
