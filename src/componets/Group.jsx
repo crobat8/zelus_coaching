@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AthleteContext } from "../context/AthletesContext";
 import { AuthContext } from "../context/AuthContext";
-import { arrayUnion, collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../firebase";
 import AthleteList from "./AthleteList";
 
@@ -13,13 +13,29 @@ const Group = (props) =>{
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    
     console.log(e.target[0].value)
+    if(e.target[0].value==""){
+      return
+    }
     var groupSpot = currentUser.uid+"_"+props.title
     const groupsRef = doc(db,"groups",groupSpot)
     updateDoc(groupsRef,{
       groupUIDS: arrayUnion(e.target[0].value)
     }).then(()=>{
       alert("sucessfully added athlete to group")
+    })
+  }
+  const handleRemove = async (e) =>{
+    // e.preventDefault();
+    console.log(e)
+
+    var groupSpot = currentUser.uid+"_"+props.title
+    const groupsRef = doc(db,"groups",groupSpot)
+    updateDoc(groupsRef,{
+      groupUIDS: arrayRemove(e)
+    }).then(()=>{
+      alert("sucessfully removed athlete")
     })
   }
 
@@ -79,9 +95,15 @@ const Group = (props) =>{
         var tempName = convertUID(e)
         
         return(
-          <h3>
-            {tempName}
-          </h3>
+          <div>
+            <h3>
+              {tempName}
+            </h3>
+            <button onClick={()=>handleRemove(e)}>
+              remove athlete
+            </button>
+          </div>
+
         )
       })}
     </div>
