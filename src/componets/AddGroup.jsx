@@ -32,7 +32,7 @@ const AddGroup = () =>{
         groupUIDS.push(e.target[i].value) 
       }
     }
-
+    
     const groupsRef = doc(db,"groups",groupSpot)
     const requestRef = doc(db,"users",currentUser.uid)
 
@@ -60,6 +60,9 @@ const AddGroup = () =>{
 
   return(
     <div>
+      <h1>
+        Add a Group
+      </h1>
       <form onSubmit={handleSubmit}>
         <label for='groupName'>group name</label>
         <input required type="groupName" placeholder="throws" />

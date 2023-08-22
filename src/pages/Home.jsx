@@ -20,6 +20,8 @@ import AddAthlete from '../componets/AddAthlete';
 import MyAthlete from '../componets/MyAthletes';
 import AddGroup from '../componets/AddGroup';
 import Group from '../componets/Group';
+import CreateOutline from '../componets/CreateOutline';
+import CreatePractice from '../componets/CreatePractice';
 
 const Home = () =>{ 
     
@@ -44,16 +46,11 @@ const Home = () =>{
   function HandleSwap(){
     if(page === 1){
       return (
-        <h1>
-          page 1 
-          
-        </h1>
+        <CreatePractice/>
       )
     }else if(page === 2){
       return (
-        <h1>
-          page 2
-        </h1>       
+        <CreateOutline/>
       )
     }else if(page === 3){
       return(
