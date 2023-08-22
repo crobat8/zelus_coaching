@@ -6,6 +6,17 @@ const GroupList = ()=>{
 
   const{userInfo} =useContext(UserContext);
 
+  if(!userInfo[0].eventGroups){
+    return(
+      <div>
+      <select className="selectContainer">
+        <option value={""}>
+          event group
+        </option>
+      </select>
+    </div>
+    )
+  }
 
   return(
     <div>
