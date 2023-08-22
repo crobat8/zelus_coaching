@@ -20,7 +20,7 @@ export const AuthContextProvider = ({ children }) => {
   if(loading){
     return(
       <h1>
-        loading
+        loading authentication
       </h1>
     )
   }

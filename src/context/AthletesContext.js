@@ -30,7 +30,7 @@ export const AthleteContextProvider = ({ children }) => {
   if(!athletesNames){
     return(
       <h1>
-        loading
+        loading athletes
       </h1>
     )
   }else{

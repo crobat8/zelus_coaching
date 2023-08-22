@@ -11,6 +11,7 @@ export const UserContext = createContext();
 export const UserContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const [userInfo,setUserInfo]=useState("")
+  const [loading,setLoading] = useState(true)
   
   useEffect(() => {
     if(!currentUser){
@@ -19,17 +20,18 @@ export const UserContextProvider = ({ children }) => {
     const userRef =query(collection(db,"users"),where("uid","==",currentUser.uid)) 
     const unsub = onSnapshot(userRef,(snapshot)=>{
       setUserInfo(snapshot.docs.map(doc=>doc.data()))
+      setLoading(false)
     })
     
     return () => {
       unsub();
     };
 
-  }, [currentUser]);
-  if(!userInfo){
+  }, []);
+  if(loading){
     return(
       <h1>
-        loading
+        loading user
       </h1>
     )
   }
