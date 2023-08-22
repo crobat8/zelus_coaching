@@ -76,8 +76,8 @@ const CreatePractice = () =>{
     setPickedGroup("")
   }
   const handleOutline = async (e) =>{
-    setPractice([])
-    var temp =[]
+    
+    var temp = practice
     var outlineSpot = currentUser.uid + "_" +e.target.value
     
     const q = query(
@@ -103,6 +103,8 @@ const CreatePractice = () =>{
     }else if(e == -1){
       temp.pop()
       setPractice([...temp]);
+    }else if(e == 0){
+      setPractice([]);
     }
 
   }
@@ -158,6 +160,8 @@ const CreatePractice = () =>{
             pick a outline to build a practice from
           </label><OutlineList/>
         </form>
+      </div>
+      <div>
         <h2>
           staged workout
         </h2>
@@ -199,6 +203,9 @@ const CreatePractice = () =>{
             </button>
             <button type="button" onClick={()=>handlePractice(-1)}>
               remove workout slot
+            </button>
+            <button type="button" onClick={()=>handlePractice(0)}>
+              reset full practice
             </button>
           </div>
 
