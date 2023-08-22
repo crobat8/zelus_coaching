@@ -11,7 +11,7 @@ export const AthleteContextProvider = ({ children }) => {
   const {userInfo}= useContext(UserContext);
   
   useEffect(() => {
-    
+    setAthletesNames([])
     if(!userInfo||!userInfo[0].athletes){
       return
     }
