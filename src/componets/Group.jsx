@@ -9,12 +9,11 @@ const Group = (props) =>{
   const{athletesNames} = useContext(AthleteContext);
   const{currentUser} = useContext(AuthContext);
   const[groupList,setGroupList]=useState([])
-  console.log(props.title)
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
     
-    console.log(e.target[0].value)
+    console.log(e)
     if(e.target[0].value==""){
       return
     }
@@ -26,6 +25,7 @@ const Group = (props) =>{
       alert("sucessfully added athlete to group")
     })
   }
+
   const handleRemove = async (e) =>{
     // e.preventDefault();
     console.log(e)
@@ -40,7 +40,6 @@ const Group = (props) =>{
   }
 
   function convertUID(x){
-    console.log(athletesNames)
     for(var i = 0; i<athletesNames.length; i++){
       if(athletesNames[i].uid === x){
         return athletesNames[i].displayName
@@ -62,8 +61,6 @@ const Group = (props) =>{
     };
 
   }, [props]);
-
-
 
   if(!groupList[0]){
     console.log(groupList)

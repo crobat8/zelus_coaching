@@ -1,32 +1,19 @@
 import React, { useContext } from "react";
+import { AthleteContext } from "../context/AthletesContext";
 import { UserContext } from "../context/UserContext";
 
+const GroupList = ()=>{
 
-const WorkoutList = (props)=>{
   const{userInfo} =useContext(UserContext);
 
 
-  if(userInfo[0].workouts == undefined){
-    
-    return
-  }
-  
-  
   return(
     <div>
       <select className="selectContainer">
         <option value={""}>
-          pick workout
+          event group
         </option>
-        {userInfo[0].workouts.map((e)=>{
-          
-          if(!!props.initValue && props.initValue == e){
-            return(
-              <option selected value={e}>
-                {e}
-              </option>
-            )
-          }
+        {userInfo[0].eventGroups.map((e)=>{
           return(
             <option value={e}>
               {e}
@@ -39,4 +26,4 @@ const WorkoutList = (props)=>{
   )
 }
 
-export default WorkoutList
+export default GroupList

@@ -121,14 +121,14 @@ const Home = () =>{
             <MenuItem onClick={()=>setPage(3)}> My Athletes </MenuItem>
             <MenuItem onClick={()=>setPage(4)}> Add Athletes </MenuItem>
             <SubMenu label="EventGroup" onClick={()=>setPage(5)}>
-              {!userInfo[0].eventGroup?
+              {!userInfo[0].eventGroups?
 
                 <div>
 
                 </div>
                 :
                 <div>
-                  {userInfo[0].eventGroup.map((e,i)=>{
+                  {userInfo[0].eventGroups.map((e,i)=>{
                     return(
                       <MenuItem onClick={()=>handleGroups(e)}> {e} </MenuItem>
                     )

@@ -7,21 +7,14 @@ import AthleteList from "./AthleteList";
 import WorkoutList from "./WorkoutList";
 const CreateOutline = () =>{
 
-  const [toAdd,setToAdd] = useState(3);
+  const [outline,setOutline] = useState([])
   const {currentUser} =useContext(AuthContext);
   var [athleteSelection,setAthleteSelection] =useState();
 
-  const handleChangeAdd = (x) =>{
-    if((toAdd+x)===0){
 
-    }else{
-      setToAdd(toAdd+x);
-    }
-  }
 
   const handleWorkoutAdd = async (e) =>{
     e.preventDefault();
-    console.log(e.target[0].value)
     var lower = e.target[0].value.toLowerCase()
 
     const meRef = doc(db,"users",currentUser.uid)
@@ -37,11 +30,10 @@ const CreateOutline = () =>{
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    console.log(e)
     var lower = e.target[0].value.toLowerCase()
     var outlineSpot = currentUser.uid+"_"+lower
     var outlineWorkouts = []
-    for(var i = 1;i<=toAdd;i++){
+    for(var i = 1;i<=outline.length;i++){
       if(e.target[i].value===""||outlineWorkouts.includes(e.target[i].value)){
         
       }else{
@@ -53,7 +45,7 @@ const CreateOutline = () =>{
     const requestRef = doc(db,"users",currentUser.uid)
     
     setDoc(groupsRef,{
-      groupID:outlineSpot,
+      outlineID:outlineSpot,
       outlineWorkouts
     }).then(()=>{
       updateDoc(requestRef,{
@@ -65,12 +57,15 @@ const CreateOutline = () =>{
 
   }
 
-  const ListCount = () =>{
-    var ret =[]
-    for(var x=0;x<toAdd;x++){
-      ret.push (<WorkoutList/>)
+  function handleOutline (e) {
+    var temp =outline
+    if(e == 1){
+      temp.push(<WorkoutList />)
+      setOutline([...temp])
+    }else if(e == -1){
+      temp.pop()
+      setOutline([...temp]);
     }
-    return ret
 
   }
     
@@ -83,12 +78,22 @@ const CreateOutline = () =>{
         <form onSubmit={handleSubmit}>
           <label for='groupName'>name of outline</label>
           <input required type="groupName" placeholder="hammer monday " />
-          <ListCount/>
+          {/* need to fix this to be more like create practice form with the whole adding instead of rebuilding thing */}
+          {outline.map((e)=>{
+            return (
+              <div>
+                <label>
+                  workout
+                </label>
+                {e}
+              </div>
+            )
+          })}
           <div>
-            <button type="button" onClick={()=>handleChangeAdd(1)}>
+            <button type="button" onClick={()=>handleOutline(1)}>
               add workout slot
             </button>
-            <button type="button" onClick={()=>handleChangeAdd(-1)}>
+            <button type="button" onClick={()=>handleOutline(-1)}>
               remove workout slot
             </button>
           </div>

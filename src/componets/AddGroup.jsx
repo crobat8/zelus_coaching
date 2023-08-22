@@ -10,7 +10,7 @@ const AddGroup = () =>{
   const [toAdd,setToAdd] = useState(2);
   const {currentUser} =useContext(AuthContext);
   var [athleteSelection,setAthleteSelection] =useState();
-
+  
   const handleChangeAdd = (x) =>{
     if((toAdd+x)===0){
 
@@ -41,7 +41,7 @@ const AddGroup = () =>{
       groupUIDS
     }).then(()=>{
       updateDoc(requestRef,{
-        eventGroup: arrayUnion(lower)
+        eventGroups: arrayUnion(lower)
       }).then(()=>{
         alert("sucessfully created event group")
       })
