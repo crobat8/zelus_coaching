@@ -2,11 +2,21 @@ import React, { useContext, useState } from "react";
 
 import AthleteList from "./AthleteList";
 import GroupList from "./GroupList";
-import { AthleteContext } from "../context/AthletesContext";
 import OutlineList from "./OutlineList";
 import WorkoutList from "./WorkoutList";
-import { UserContext } from "../context/UserContext";
-import { AuthContext } from "../context/AuthContext";
+
+import { 
+  AthleteContext
+} from "../context/AthletesContext";
+
+import { 
+  AuthContext
+} from "../context/AuthContext";
+
+import { 
+  db
+} from "../firebase";
+
 import {
   collection,
   query,
@@ -15,13 +25,7 @@ import {
   setDoc,
   doc,
   updateDoc,
-  deleteField,
-  deleteDoc,
-  onSnapshot,
-  get,
-  arrayUnion
 } from "firebase/firestore";
-import { db } from "../firebase";
 
 const CreatePractice = () =>{
   const [pickedGroup,setPickedGroup] = useState("")
@@ -63,12 +67,9 @@ const CreatePractice = () =>{
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
-    
     if(date === ""){
       alert("you must select a date")
-
     }else{
-      
       if(pickedGroup === "" && pickedAthlete === ""){
         alert("you need to select either a group or an athlete")
       }else if(pickedGroup === ""){
@@ -76,24 +77,18 @@ const CreatePractice = () =>{
         alert("succesfully sent practice")
       }else if(pickedAthlete === ""){
         var groupPath = currentUser.uid+'_'+pickedGroup
-        var temp = []
-    
         const q = query(
           collection(db, "groups"),
           where("groupID", "==", groupPath)
         );
-        
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           doc.data().groupUIDS.map((UID)=>{
             addToDatabase(e,UID)
           })
-          temp.push(doc.data())
         });
-
       }
     }
-    
   }
 
   function handleGroup(e){
@@ -125,10 +120,8 @@ const CreatePractice = () =>{
     setPickedGroup("")
   }
   const handleOutline = async (e) =>{
-    
     var temp = practice
     var outlineSpot = currentUser.uid + "_" +e.target.value
-    
     const q = query(
       collection(db, "outlines"),
       where("outlineID", "==", outlineSpot)
@@ -140,7 +133,6 @@ const CreatePractice = () =>{
         temp.push(<WorkoutList initValue={e}/>)
         setPractice([...temp])
       })
-      
     });
   }
 
@@ -155,8 +147,8 @@ const CreatePractice = () =>{
     }else if(e === 0){
       setPractice([]);
     }
-
   }
+
   function handleDate(e){
     setDate(e.target.value)
   }
@@ -203,7 +195,6 @@ const CreatePractice = () =>{
         <form onChange={handleDate}>
           <input type="date"/>
         </form>
-        
       </div>
       <div>
         <h2>
@@ -216,15 +207,12 @@ const CreatePractice = () =>{
         :
         ""
         }
-
         {!pickedAthlete?
         <form onChange={handleGroup}>
           <GroupList/>
         </form>:
         ""
         }
-        {/* maybe remove this once submit is set up depending on 
-        if its needed once I do css \|/*/}
         <h3>
           {pickedAthlete}
           {pickedGroup}
@@ -244,19 +232,16 @@ const CreatePractice = () =>{
         <h2>
           staged workout
         </h2>
-            
         <form onSubmit={(e)=>handleSubmit(e)}>
           {practice.map((e)=>{
             return (
               <div>
-
                 <div>
                   <label>
                     title
                   </label>
                   {e}
                 </div>
-
                 <div>
                   <label>
                     reps
@@ -264,7 +249,6 @@ const CreatePractice = () =>{
                   <input type="number">
                   </input>
                 </div>
-
                 <div>
                   <label>
                     notes
@@ -272,7 +256,6 @@ const CreatePractice = () =>{
                   <input>
                   </input>
                 </div>
-
               </div>
             )
           })}
@@ -287,12 +270,10 @@ const CreatePractice = () =>{
               reset full practice
             </button>
           </div>
-
           <button className="logButton">submit</button>
         </form>
       </div>
     </div>
-
   )
 }
 
