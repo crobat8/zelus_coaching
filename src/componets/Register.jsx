@@ -1,32 +1,22 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db, storage } from "../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { auth, db} from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate, Link } from "react-router-dom";
+// import { useNavigate,} from "react-router-dom";
 import { 
-  AiFillGithub,
-  AiFillLinkedin,
-  AiFillFacebook,
-  AiFillInstagram,
   AiFillMail,
   AiOutlineKey,
   AiOutlineUser
 } from 'react-icons/ai';
-import FadeIn from "react-fade-in";
+
 
 const Register = ({change}) => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const [fileName,setFileName] = useState('')
+  // const navigate = useNavigate();
+  
   let iconStyles = { color: "#1B2430", height:"16px",width:"16px",padding:"5px"};
   
-  const saveFile = (e) =>{
-    
-    var partsArray = e.nativeEvent.srcElement.value.split('\\');
-    setFileName(partsArray[partsArray.length -1])
-  }
 
   const handleSubmit = async (e) => {
     console.log(e.target[0].value)
@@ -46,9 +36,6 @@ const Register = ({change}) => {
       //Create user
       console.log("test")
       const res = await createUserWithEmailAndPassword(auth, email, password);
-
-      //Create a unique image name
-      const date = new Date().getTime();
 
       try {
         //Update profile

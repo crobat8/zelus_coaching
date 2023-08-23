@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 
-import { auth, db, storage,getAuth} from "../firebase";
+import { auth} from "../firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { 
-  AiFillGithub,
-  AiFillLinkedin,
-  AiFillFacebook,
-  AiFillInstagram,
   AiFillMail,
-  AiOutlineKey
 } from 'react-icons/ai';
-import FadeIn from "react-fade-in";
 
 const ResetPassword = ({change}) =>{
 
@@ -21,8 +15,6 @@ const ResetPassword = ({change}) =>{
       setLoading(true);
       e.preventDefault();
         await sendPasswordResetEmail(auth, email);
-        console.log(email)
-        console.log("Password reset email sent")
     }
 
     return (

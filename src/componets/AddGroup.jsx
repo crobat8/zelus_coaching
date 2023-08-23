@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AthleteContext } from "../context/AthletesContext";
+import React, { useContext, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
 import { db } from "../firebase";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
@@ -9,7 +9,6 @@ const AddGroup = () =>{
   
   const [toAdd,setToAdd] = useState(2);
   const {currentUser} =useContext(AuthContext);
-  var [athleteSelection,setAthleteSelection] =useState();
   
   const handleChangeAdd = (x) =>{
     if((toAdd+x)===0){

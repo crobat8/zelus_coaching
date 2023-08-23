@@ -1,7 +1,7 @@
 import React from "react";
 
 const Pill = (props) =>{
-  if(props.count%2==0){
+  if(props.count%2===0){
     
     return(
       <article className="pill">

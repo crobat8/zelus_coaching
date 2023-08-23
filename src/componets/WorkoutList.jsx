@@ -5,12 +5,9 @@ import { UserContext } from "../context/UserContext";
 const WorkoutList = (props)=>{
   const{userInfo} =useContext(UserContext);
 
-
-  if(userInfo[0].workouts == undefined){
-    
+  if(userInfo[0].workouts === undefined){
     return
   }
-  
   
   return(
     <div>
@@ -20,7 +17,7 @@ const WorkoutList = (props)=>{
         </option>
         {userInfo[0].workouts.map((e)=>{
           
-          if(!!props.initValue && props.initValue == e){
+          if(!!props.initValue && props.initValue === e){
             return(
               <option selected value={e}>
                 {e}

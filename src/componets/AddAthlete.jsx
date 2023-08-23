@@ -8,13 +8,8 @@ import {
   query,
   where,
   getDocs,
-  setDoc,
   doc,
   updateDoc,
-  deleteField,
-  deleteDoc,
-  onSnapshot,
-  get,
   arrayUnion
 } from "firebase/firestore";
 
@@ -29,7 +24,6 @@ import {
 const AddAthlete = () =>{
   const{currentUser} = useContext(AuthContext);
   const [athletes, setAthletes] = useState([]);
-  const [err, setErr] = useState(false);
   
   const handleSearch = async (e) => {
     
@@ -66,21 +60,21 @@ const AddAthlete = () =>{
         className="addinput"
       />
         {athletes.map((e,i)=>{
-        if(e.uid == currentUser.uid){
-          return
-        }
-        return(
-          <div className="add" >
-            <div className="userChatInfo">
-              {/* profile pic */}
-              <span>{e.displayName}</span>
-              <button onClick={()=>sendRequest(e)} >
-                add user as friend
-              </button>  
-            </div>
-          </div> 
-        )
-      })}  
+          if(e.uid === currentUser.uid){
+            return false
+          }
+          return(
+            <div className="add" >
+              <div className="userChatInfo">
+                {/* profile pic */}
+                <span>{e.displayName}</span>
+                <button onClick={()=>sendRequest(e)} >
+                  add user as friend
+                </button>  
+              </div>
+            </div> 
+          )
+        })}  
     </div>
 
   )

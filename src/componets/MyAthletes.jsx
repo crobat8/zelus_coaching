@@ -1,11 +1,10 @@
-import React, { useContext, useState,useEffect } from "react";
-import { UserContext } from "../context/UserContext";
+import React, { useContext} from "react";
+
 import { AuthContext } from "../context/AuthContext";
 import { AthleteContext } from "../context/AthletesContext";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 const MyAthlete = () =>{
-  const{userInfo} =useContext(UserContext)
   const{athletesNames} = useContext(AthleteContext)
   const{currentUser} = useContext(AuthContext);
   

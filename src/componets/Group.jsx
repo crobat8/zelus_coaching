@@ -13,8 +13,7 @@ const Group = (props) =>{
   const handleSubmit = async (e) =>{
     e.preventDefault();
     
-    console.log(e)
-    if(e.target[0].value==""){
+    if(e.target[0].value === ""){
       return
     }
     var groupSpot = currentUser.uid+"_"+props.title
@@ -27,8 +26,7 @@ const Group = (props) =>{
   }
 
   const handleRemove = async (e) =>{
-    // e.preventDefault();
-    console.log(e)
+    e.preventDefault();
 
     var groupSpot = currentUser.uid+"_"+props.title
     const groupsRef = doc(db,"groups",groupSpot)
@@ -60,7 +58,7 @@ const Group = (props) =>{
       unsub();
     };
 
-  }, [props]);
+  }, [props,currentUser.uid]);
 
   if(!groupList[0]){
     console.log(groupList)

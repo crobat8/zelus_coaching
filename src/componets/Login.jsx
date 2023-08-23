@@ -1,21 +1,16 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { 
-  AiFillGithub,
-  AiFillLinkedin,
-  AiFillFacebook,
-  AiFillInstagram,
   AiFillMail,
   AiOutlineKey
 } from 'react-icons/ai';
-import FadeIn from "react-fade-in";
 
 
 const Login = ({change}) => {
 
-  const [err, setErr] = useState(false);
+  //const [err, setErr] = useState(false);
   const navigate = useNavigate();
   let iconStyles = { color: "#1B2430", height:"16px",width:"16px",padding:"5px"};
 
@@ -30,7 +25,7 @@ const Login = ({change}) => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/")
     } catch (err) {
-      setErr(true);
+      //setErr(true);
     }
   };
 

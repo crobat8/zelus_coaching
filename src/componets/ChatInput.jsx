@@ -23,7 +23,7 @@ const ChatInput = (props) =>{
         sentName,
       });
       e.preventDefault();
-      console.log(e.target[0].value)
+      console.log(e.target[0].value) 
       e.target[0].value = ""
     }catch(err){
       console.log(err)

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { AthleteContext } from "../context/AthletesContext";
 import { UserContext } from "../context/UserContext";
 
 const GroupList = ()=>{

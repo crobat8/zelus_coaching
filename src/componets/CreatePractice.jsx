@@ -85,6 +85,7 @@ const CreatePractice = () =>{
         querySnapshot.forEach((doc) => {
           doc.data().groupUIDS.map((UID)=>{
             addToDatabase(e,UID)
+            return true
           })
         });
       }
@@ -104,7 +105,7 @@ const CreatePractice = () =>{
   }
 
   function handleIndie(e){
-    if(e.target.value == ""){
+    if(e.target.value === ""){
       setPickedGroup("")
       setPickedAthlete("")
       setPickedAthleteUID("")
@@ -132,6 +133,7 @@ const CreatePractice = () =>{
       doc.data().outlineWorkouts.map((e)=>{
         temp.push(<WorkoutList initValue={e}/>)
         setPractice([...temp])
+        return true
       })
     });
   }

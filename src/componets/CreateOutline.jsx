@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { db } from "../firebase";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
@@ -53,10 +53,10 @@ const CreateOutline = () =>{
 
   function handleOutline (e) {
     var temp =outline
-    if(e == 1){
+    if(e === 1){
       temp.push(<WorkoutList />)
       setOutline([...temp])
-    }else if(e == -1){
+    }else if(e === -1){
       temp.pop()
       setOutline([...temp]);
     }
