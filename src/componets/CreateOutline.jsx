@@ -1,17 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AthleteContext } from "../context/AthletesContext";
 import { AuthContext } from "../context/AuthContext";
 import { db } from "../firebase";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
-import AthleteList from "./AthleteList";
 import WorkoutList from "./WorkoutList";
 const CreateOutline = () =>{
 
   const [outline,setOutline] = useState([])
   const {currentUser} =useContext(AuthContext);
-  var [athleteSelection,setAthleteSelection] =useState();
-
-
 
   const handleWorkoutAdd = async (e) =>{
     e.preventDefault();
@@ -24,7 +19,6 @@ const CreateOutline = () =>{
     }).then(()=>{
       alert("sucessfully added workout")
     })
-
 
   }
 
@@ -111,9 +105,6 @@ const CreateOutline = () =>{
           <button className="logButton">save</button>
         </form>
       </div>
-
-
-
     </div>
   )
 }
