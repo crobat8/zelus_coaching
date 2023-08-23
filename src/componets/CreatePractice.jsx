@@ -38,6 +38,7 @@ const CreatePractice = () =>{
 
   const addToDatabase = async (e,ID) =>{
     const dates = date.split('-');
+    //date stuff might not be important but left to future proof
     dates[1] = convertToMonth(dates[1])
     var year = dates[0]
     var month = dates[1]
