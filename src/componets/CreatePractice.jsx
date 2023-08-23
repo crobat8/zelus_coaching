@@ -28,27 +28,76 @@ const CreatePractice = () =>{
   const [pickedAthlete,setPickedAthlete] = useState("")
   const [pickedAthleteUID,setPickedAthleteUID] = useState("")
   const [practice,setPractice] = useState([])
-  const [date,setDate] = useState()
+  const [date,setDate] = useState("")
   const{athletesNames} = useContext(AthleteContext)
   const{currentUser} = useContext(AuthContext);
 
+  const addToDatabase = async (e,ID) =>{
+    const dates = date.split('-');
+    dates[1] = convertToMonth(dates[1])
+    var year = dates[0]
+    var month = dates[1]
+    var day = dates[2]
+    var practicePath = 'practices.'+year+'.'+month+'.'+day
+    await updateDoc(doc(db,"users",ID), {
+      [practicePath]:day
+    }).then(async () => {
+      var practiceID = ID+"_"+date
+      var workouts = []
+      for(var i = 0;i<practice.length;i++){
+        var workout ={
+          exercise:e.target[(i*3)].value,
+          reps:e.target[(i*3)+1].value,
+          notes:e.target[(i*3)+2].value
+        }
+        workouts.push(workout)
+      }
+      await setDoc(doc(db,"practices",practiceID), {
+        practiceID,
+        workouts
+      }).then(() => {
+        console.log("succesfully sent")
+      });
+    });
+  }
+
   const handleSubmit = async (e) =>{
     e.preventDefault()
-    if(pickedGroup == "" && pickedAthlete == ""){
-      alert("you need to select either a group or an athlete")
-    }else if(pickedGroup == ""){
-      console.log("indi")
-      console.log(pickedAthleteUID)
-    }else if(pickedAthlete == ""){
-      console.log("group")
-    }
+    
+    if(date === ""){
+      alert("you must select a date")
 
-    console.log(e)
-    console.log(practice.length)
+    }else{
+      
+      if(pickedGroup === "" && pickedAthlete === ""){
+        alert("you need to select either a group or an athlete")
+      }else if(pickedGroup === ""){
+        addToDatabase(e,pickedAthleteUID)
+        alert("succesfully sent practice")
+      }else if(pickedAthlete === ""){
+        var groupPath = currentUser.uid+'_'+pickedGroup
+        var temp = []
+    
+        const q = query(
+          collection(db, "groups"),
+          where("groupID", "==", groupPath)
+        );
+        
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          doc.data().groupUIDS.map((UID)=>{
+            addToDatabase(e,UID)
+          })
+          temp.push(doc.data())
+        });
+
+      }
+    }
+    
   }
 
   function handleGroup(e){
-    if(e.target.value == ""){
+    if(e.target.value === ""){
       setPickedGroup("")
       setPickedAthlete("")
       setPickedAthleteUID("")
@@ -68,7 +117,7 @@ const CreatePractice = () =>{
     }
     
     for(var x = 0;x<athletesNames.length;x++){
-      if(athletesNames[x].uid == e.target.value){
+      if(athletesNames[x].uid === e.target.value){
         setPickedAthlete(athletesNames[x].displayName)
         setPickedAthleteUID(e.target.value)
       }
@@ -97,19 +146,49 @@ const CreatePractice = () =>{
 
   function handlePractice (e) {
     var temp =practice
-    if(e == 1){
+    if(e === 1){
       temp.push(<WorkoutList />)
       setPractice([...temp])
-    }else if(e == -1){
+    }else if(e === -1){
       temp.pop()
       setPractice([...temp]);
-    }else if(e == 0){
+    }else if(e === 0){
       setPractice([]);
     }
 
   }
   function handleDate(e){
     setDate(e.target.value)
+  }
+
+  function convertToMonth(x){
+    if(x ==='01'){
+      return 'January'
+    }else if(x === '02'){
+      return 'Febuary'
+    }else if(x === '03'){
+      return 'March'
+    }else if(x === '04'){
+      return 'April'
+    }else if(x === '05'){
+      return 'May'
+    }else if(x === '06'){
+      return 'June'
+    }else if(x === '07'){
+      return 'July'
+    }else if(x === '08'){
+      return 'Augest'
+    }else if(x === '09'){
+      return 'September'
+    }else if(x === '10'){
+      return 'October'
+    }else if(x === '11'){
+      return 'November'
+    }else if(x === '12'){
+      return 'December'
+    }else{
+      return x
+    }
   }
 
   return(
